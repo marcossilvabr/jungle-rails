@@ -1,23 +1,25 @@
 class ReviewsController < ApplicationController
-  # def new
-  #   @review = Review.new
-  #   @product = product.find(params[:product_id])
-  # end
+  before_filter :authorize
+
   def create
-    puts review_params
+    @product = Product.find(params["product_id"])
     @review = Review.new(review_params)
-    @review.product_id = params["product_id"] ## GET SECOND OPINION
+    @review.user_id = @current_user.id
     if @review.save
       redirect_to :back
     else
-      # redirect_to home,
-      # error: order.errors.full_messages.first
       puts @review.errors.to_a
     end
   end
 
+  def destroy
+    @review = Review.find params[:id]
+    @review.destroy
+    redirect_to :back, notice: 'Product deleted!'
+  end
+
   private
     def review_params
-      params.require(:review).permit(:description, :rating)
+      params.require(:review).permit(:rating, :description, :product_id)
     end
 end
