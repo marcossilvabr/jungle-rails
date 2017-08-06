@@ -21,6 +21,17 @@ end
 
 # Let's do this ...
 
+## USERS
+
+User.destroy_all
+
+User.create!({
+  first_name: 'Testing',
+  last_name: 'Silva',
+  email: 'Testing@Testing.com',
+  password: 'testpass'
+  })
+
 ## CATEGORIES
 
 puts "Finding or Creating Categories ..."
@@ -130,6 +141,31 @@ cat3.products.create!({
   image: open_asset('furniture3.jpg'),
   quantity: 23,
   price: 2_483.75
+})
+
+## REVIEWS
+
+Review.destroy_all
+
+Review.create!({
+  product_id: 1,
+  user_id: 1,
+  description: 'Great!',
+  rating: 5
+})
+
+Review.create!({
+  product_id: 2,
+  user_id: 1,
+  description: 'Good',
+  rating: 4
+})
+
+Review.create!({
+  product_id: 3,
+  user_id: 1,
+  description: 'Just ok',
+  rating: 2
 })
 
 
